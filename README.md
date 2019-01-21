@@ -1,3 +1,14 @@
+# Build
+
+    docker build -t renepardon/gitlab-php-js-sonar-runner .
+    docker login https://index.docker.io/v1
+    docker push docker.io/renepardon/gitlab-php-js-sonar-runner:latest
+
+# Add a Gitlab Runner
+
+    docker run -d --name gitlab-runner --restart always -v '/var/run/docker.sock:/var/run/docker.sock' gitlab/gitlab-runner && \
+    docker exec -it gitlab-runner gitlab-runner register -n --url https://repository.<YOURDOMAIN>.com/ --registration-token <YOURGITLABRUNNERTOKEN> --executor docker --description "gitlab-runner" --docker-image "alpine:latest" --docker-volumes /var/run/docker.sock:/var/run/docker.sock
+
 # Usage
 
 ## .gitlab-ci.yml
@@ -84,3 +95,8 @@ well as Sonarqube.
       - docker push $LATEST_IMAGE
       only:
       - master
+
+# TODOs
+
+- replace `node:8-alpine` with `renepardon/gitlab-php-js-sonar-runner:latest`
+- replace `ciricihq/gitlab-sonar-scanner` with `renepardon/gitlab-php-js-sonar-runner:latest`

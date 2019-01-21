@@ -37,7 +37,8 @@ RUN apk add --update \
 # Install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php \
-    && php -r "unlink('composer-setup.php');"
+    && php -r "unlink('composer-setup.php');" \
+    && mv composer.phar /usr/local/bin/composer
 
 # Install phpunit, the tool that we will use for testing
 RUN curl --location --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.phar \
