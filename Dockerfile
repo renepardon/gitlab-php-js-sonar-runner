@@ -2,6 +2,7 @@ FROM php:7.2-fpm-alpine
 
 LABEL maintainer="rene.pardon@boonweb.de"
 
+WORKDIR /var/www/html
 ENTRYPOINT ["docker-php-entrypoint"]
 CMD ["php", "-a"]
 
